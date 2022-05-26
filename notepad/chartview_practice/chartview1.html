@@ -1,0 +1,88 @@
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<!--한글깨짐 방지를 위해서 해당 코드를 입력하여 문서에 대한 콘텐츠 보안정책을 지정한다-->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!--IE브라우저에서 각버전 중 가장 최신 표준모드를 선택하는 문서모드-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!--뷰포트는 모바일 브라우저의 뷰포트 크기조절을 위해 만들어진 설정, 단위는 PX단위며 meta태그에서는 단위생략함-->
+<html> <!--HTML 언어로 작성되어 있다는 것을 알려준다.-->
+<head> <!-- heading의 준말로 머리말에 해당한다. 해드시작 -->
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js">//해당 차트소스를 가져온다.
+	</script>
+    <canvas id="myChart"></canvas><!--캔버스는 웹페이지에서 그래픽적인 것을 그릴때 사용-->
+</head>
+<body><!--바디를 열어 본문내용을 채운다.-->
+    <canvas id="myChart" width="200" height="200"></canvas> <!--길이 200*200의 차트 크기를 설정한다.-->
+    <script>//스크립트를 열어 안에 차트 값을 채워넣어준다.
+        const rand1 = parseInt(Math.random() * 100); //rand1에 0부터 100까지의 수를 랜덤으로 받는다. 
+        const rand2 = parseInt(Math.random() * 100);  //rand2에 0부터 100까지의 수를 랜덤으로 받는다. 
+        const rand3 = parseInt(Math.random() * 100); //rand3에 0부터 100까지의 수를 랜덤으로 받는다. 
+        const rand4 = parseInt(Math.random() * 100);  //rand4에 0부터 100까지의 수를 랜덤으로 받는다. 
+        const rand5 = parseInt(Math.random() * 100);  //rand5에 0부터 100까지의 수를 랜덤으로 받는다. 
+        const rand6 = parseInt(Math.random() * 100);  //rand6에 0부터 100까지의 수를 랜덤으로 받는다. 
+        const rand7 = parseInt(Math.random() * 100);  //rand7에 0부터 100까지의 수를 랜덤으로 받는다. 
+        const rand8 = parseInt(Math.random() * 100);  //rand8에 0부터 100까지의 수를 랜덤으로 받는다. 
+        const rand9 = parseInt(Math.random() * 100);  //rand9에 0부터 100까지의 수를 랜덤으로 받는다. 
+        const rand10 = parseInt(Math.random() * 100);  //rand10에 0부터 100까지의 수를 랜덤으로 받는다. 
+        const rand11 = parseInt(Math.random() * 100);  //rand11에 0부터 100까지의 수를 랜덤으로 받는다. 
+        const rand12 = parseInt(Math.random() * 100);  //rand12에 0부터 100까지의 수를 랜덤으로 받는다. 
+        const rand13 = parseInt(Math.random() * 100);  //rand13에 0부터 100까지의 수를 랜덤으로 받는다. 
+        const rand14 = parseInt(Math.random() * 100);  //rand14에 0부터 100까지의 수를 랜덤으로 받는다. 
+        const rand15 = parseInt(Math.random() * 100);  //rand15에 0부터 100까지의 수를 랜덤으로 받는다. 
+        const rand16 = parseInt(Math.random() * 100);  //rand16에 0부터 100까지의 수를 랜덤으로 받는다. 
+        const rand17 = parseInt(Math.random() * 100); //rand17에 0부터 100까지의 수를 랜덤으로 받는다. 
+        const rand18 = parseInt(Math.random() * 100);  //rand18에 0부터 100까지의 수를 랜덤으로 받는다. 
+        const rand19 = parseInt(Math.random() * 100);  //rand19에 0부터 100까지의 수를 랜덤으로 받는다. 
+        const rand20 = parseInt(Math.random() * 100);  //rand20에 0부터 100까지의 수를 랜덤으로 받는다. 
+        var ctx = document.getElementById("myChart").getContext('2d');
+        //주어진 문자열과 일치하는 id속성을 가진 요소를 찾고 이를 나타내는 요소객체를 반환한다. mychart에서 2d 그래픽으로 적용
+		var myChart = new Chart(ctx, {
+            type: 'bar', //그래프의 형태를 지정해준다. 
+            data: {
+			//라벨을 설정한다. 총 20개
+                labels: ["일자영", "이자영", "삼자영", "사자영", "오자영", "육자영", "칠자영","팔자영", "구자영", "십자영",
+				"이자영", "이자일", "이자이", "이자삼", "이자사", "이자오", "이자육","이자칠", "이자팔", "이자구"],
+                datasets: [{
+			//그래프 전체 라벨을 설정한다.		
+                    label: '시험 점수',
+            //데이터 값을 입력한다.        
+			data: [rand1, rand2, rand3, rand4, rand5, rand6, rand7, rand8, rand9, rand10,
+                    rand11, rand12, rand13, rand14, rand15, rand16, rand17, rand18, rand19, rand20],
+			//그래프의 색을 지정한다.  		
+            backgroundColor: [ 
+                        'rgba(255, 100, 132, 0.8)',
+                        'rgba(67, 160, 150, 0.8)',
+                        'rgba(255, 200, 86, 0.8)',
+                        'rgba(75, 192, 192, 0.8)',
+                        'rgba(153, 100, 78, 0.8)',
+                        'rgba(255, 150, 64, 0.8)',
+                        'rgba(239, 220, 222, 0.8)',
+                        'rgba(255, 100, 132, 0.8)',
+                        'rgba(54, 160, 235, 0.8)',
+                        'rgba(255, 205, 86, 0.8)',
+                        'rgba(75, 195, 192, 0.8)',
+                        'rgba(153, 102, 255, 0.8)',
+                        'rgba(255, 159, 64, 0.8)',
+                        'rgba(239, 270, 222, 0.8)',
+                        'rgba(255, 99, 132, 0.8)',
+                        'rgba(54, 162, 170, 0.8)',
+                        'rgba(12, 130, 86, 0.8)',
+                        'rgba(75, 192, 192, 0.8)',
+                        'rgba(153, 102, 255, 0.8)',
+                        'rgba(255, 159, 64, 0.8)'
+                    ]
+                }]
+            }, //와이축 데이터 범위를 설정해준다. 0부터 시작. 
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true //
+                        }
+                    }]
+                }
+            }
+        });
+    </script> <!--스크립트 구성이 끝나면 닫는다.-->
+</body><!--body를 닫는다.-->
+</html><!--역슬레시 html을 작성하여 html를 닫는다.-->
