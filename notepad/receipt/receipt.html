@@ -1,0 +1,220 @@
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<!--한글깨짐 방지를 위해서 해당 코드를 입력하여 문서에 대한 콘텐츠 보안정책을 지정한다-->
+<html><!--HTML 언어로 작성되어 있다는 것을 알려준다.-->
+<head>
+</head>
+<body>
+ <body text="#000000"><!--바디 텍스트는 검정색이다.-->
+<script><!--JavaScript 코드는 HTML 문서의 일부인 script../script 태그의 내용으로서 작성됨-->
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+function addZero(i) {<!--시간, 분이 1자리로 나올 때 0을 추가해주는 함수-->
+					if (i < 10) {i = "0" + i}<!--시간, 분이 1자리로 나올 때 0을 추가해주는 함수-->
+						return i;<!--0이 추가된 i가 리턴된다.-->
+} //스트링의 길이에 따라 잘라내주는 함수
+function fn_strlen(str) {
+	var len = 0; //변수 선언
+	for(var i=0;i<str.length;i++) { //문자열길이만큼 for문을 반복해준다.
+			len += (str.charCodeAt(i) > 128) ? 2 : 1; //128부터 한글, 한글이면 2고 아니면 1을 더해준다.
+		}//len이 일종의 바이트역할
+		return len; //바이트값을 리턴한다.
+	}
+
+// 문자열에서 시작위치와 길이를 주면 substring 하여 리턴한다.
+function fn_subString(str,size) { //문자열과 사이즈 17만큼 자르기
+	var lim = 0;
+	var len = fn_strlen(str);
+			 
+			  // 길이만큼 잘라내는 로직
+	if (len < size) { //위에 처리한 len이 사이즈보다 작으면 
+		return str; //그대로 문자열을 반환.
+		} else { //사이즈보다 문자열이 클 경우 
+			for (var i=0; i<len; i++) { //for문을 문자열 길이만큼 반복시켜서 
+				lim += (str.charCodeAt(i) > 128) ? 2 : 1;
+				if (lim > size) {
+					return str.substring(0,i); //해당 사이즈에 맞춰 잘라준 문자열을 리턴한다.
+				}
+			}
+	}
+}
+//계산에 쓰이는 함수들 정리
+var star ="";
+var sum = 0;
+var totalSum = 0;
+var totalTaxFree = 0;
+var ratesum = 0;
+var rateprice = 0;
+var totalTaxFree= 0;
+var tax = 0.1;
+var taxprice = 0;
+var rateprice = 0;
+//날짜 부르는 함수 정리 
+var today = new Date();
+var year = today.getFullYear();
+var month = today.getMonth()+1; //+1을 해줘야 월이 맞는다. 
+var day = today.getDate();
+var date_format = year+"-"+(("00"+month.toString()).slice(-2))+"-"+(("00"+day.toString()).slice(-2));
+//03, 04 식으로 앞에 0을 넣어줘야해서 다음과 같이 문자열로 처리
+var current_time = (date_format + " " + addZero(today.getHours()) + ":" + addZero(today.getMinutes()));
+//주차파킹시간 1시간 전으로 설정 함수 
+function parkingtime(){
+	var parking_time = (date_format + " " + addZero(today.getHours()-1) + ":" + addZero(today.getMinutes()));
+	var parkingtime = parking_time ;
+	document.write(parkingtime);
+}
+//품목 리스트
+var item = new Array( "해피홈 SAFE365 핸드로션", "(G)lh원형유리화병 10", "상투과자E", "더블링 나일론 깡 롤", "해피홈 SAFE핸드워시",
+				"농심 신라면120G*5", "(대)국내산삼결살찌개", "오뚜기 진비빔면 156g", "GAP 죽장사과 4-6입/", "순 유기농 바나나(봉)",
+				"피코크 탄두리 닭가슴", "(달콤)순살닭강정(g)", "DZ주니어양말3족C_BK", "DZ주니어양말3족C_WH", "프리미엄생연어초밥", "피코크들깨미역500g",
+				"남양 맛있는우유GT 저지방", "녹차원흑당시럽10입", "진라면소컵(매)65g* 6", "캐라시스 앰플 트리트먼트", "프루밀 미숫가루우유",
+				"자일로스갈색설탕500g", "CJ 비비고칩 20G", "피코크 들깨미역국500", "흑원당 말차 밀크티", "1+ 등급란 10개입 특",
+				"하리보젤리(선물세트)", "침구세트", "비요뜨3개입*1개 추가증정", "하림)닭가슴살리얼바블랙", "아이)젤리로자몽히비스커스", "덴마크)인포켓치즈20g",
+				"PB)허니버터고구마말랭이60g*10개입", "롯데)ABC가나초콜렛", "스캇)스케일 940 MBT 자전거" );
+ //가격 리스트      
+var price = new Array( 7500, 6900, 5980, 3300, 5500, 3380, 6610, 2750, 10800, 4980, 2480, 7920, 4980, 4980, 7130,
+				3980, 4480, 4980, 3210, 6950, 2980, 1990, 1980, 3980, 4480, 3480, 25000, 780000, 4000, 2500, 1800,
+				2800, 7000, 10000, 5000000 );
+ //수량 리스트        
+var amount = new Array( 5, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 2, 1, 25, 10,
+				10, 10, 25, 5, 25, 100, 1 ); 
+//과세우뮤 리스트
+var taxfree = new Array(false, false, false, false, false, false, true, false, true, true, false, false,
+	            false, false, false, false, true, false, false, false, false, false, false, false, false, true, 
+				false , false, false, false,false,false,false,false,true);
+//영수증 상단 출력 부분 
+document.write("" +
+		   "<table border = 0>" +
+			  "<tr>"+"<td rowspan=3 align=center width=135><b>"+"emart"+"</b></td>" +
+				 "<td>이마트 죽전점 (031)888-1234</td></tr>" +
+			  "<tr><td>206-86-50913 강희석</td></tr>" +
+			  "<tr><td>용인 수지구 포은대로 552</td>" +"</tr>"+"</table>" +
+		   "<table border=0 cellspacing=0 cellpadding=0>" +
+			  "<tr><td colspan=2>영수증 미지참시 교환/환불 불가</td></tr>" +
+			  "<tr><td colspan=2>정상상품에 한함, 30일 이내(신선 7일)</td>"+"</tr>" +
+			  "<tr><td colspan=2>※일부 브랜드매장 제외(매장 고지물참조)</td></tr>" +
+			  "<tr><td colspan=2>교환/환불 구매점에서 가능(결제카드 지참)</td></tr>" +
+			  "<tr><td><br></td>"+"</tr>" +
+			  "<tr><td width = \"200\" align = \"lift\">[구매] " + current_time + "</td>" +
+				 "<td width = \"155\" align = \"right\">POS:0011-9861</td>" +
+			  "</tr>" +"</table>");
+//품목 리스트 출력 부분
+document.write(
+			"<table border=0>" +
+			"<tr>"+"<td colspan=6>"+"------------------------------------------------------" + "</td>"+"</tr>"+
+			"<tr><td width=5>" + " " + "</td>" + 
+			"<td width=155>" + "상 품 명" + "</td>" + 
+			"<td width=30><center>" + " 단 가" + "</center></td>" + 
+			"<td width=35><center>" + "  수량" + "</center></td>" + 
+			"<td width=35 align=right>" + "    금 액" + "</center></td>" +
+			"<td width=2>" + " " + "</td>" + "</tr>"+
+			"<tr>"+"<td colspan=6>"+"------------------------------------------------------" + "</td>"+"</tr>");
+for(i=0; i<item.length; i++){ //리스트에 과세유무를 확인하고 별을 붙여준다. 또한 과세품목 합계와 아닌 금액(별 붙인 아이템) 합계를 구한다. 
+	sum = price[i] * amount[i]; //합계는 가격 곱하기 수량
+    totalSum += sum; //품목들의 합계가 총합계
+    if(taxfree[i] == true) { 
+		star = "*";// 만약 taxfree가 참이면 별을 붙인다. 
+		totalTaxFree = totalTaxFree + sum; //면세합계
+       } else {
+		star = " "; //false면 안붙인다.
+	 ratesum = ratesum + sum; //비과세 품목(면세품목) 합계
+	}//조건문을 닫는다. 
+	document.write("<tr>"+"<td>"+star+"</td>"); //별을 출력한다. 
+    document.write("<td>"+fn_subString(item[i],17)+"</td>");//0부터 17 바이트 까지의 문자열을 출력 
+	document.write("<td align=right>"+numberWithCommas(price[i])+"</td>");//숫자는 천단위에서 콤마 붙여서 출력한다. 
+	document.write("<td align=right>"+numberWithCommas(amount[i])+"</td>");//숫자는 천단위에서 콤마 붙여서 출력한다. 
+	document.write("<td align=right>"+numberWithCommas(price[i]*amount[i])+"</td>"+"</tr>");//숫자는 천단위에서 콤마 붙여서 출력한다. 
+    //첫줄이 상품명, 단가, 수량 금액 적혀있기 때문에 +1 을 해준다. 
+	if ((i+1)%5==0){
+        document.write("<tr>"+"<td colspan=6>" +
+        "------------------------------------------------------"+"</td>"+"</tr>");
+      } //나누기 5로 나누어 떨어질때마다 셀을 병합하고 해당 라인을 넣어 출력한다. 
+ } 	
+	document.write("</table>");  //품목 출력 테이블을 닫는다.
+	
+	totalPrice = ratesum + totalTaxFree; //총가격
+	rateprice =  Math.floor((ratesum / (1 + tax)));//과세
+	taxprice = totalPrice - rateprice; //총가격에서 과세 뺀 금액
+		//새로운 테이블을 만든다. 이 테이블에 면세품목 가격 및 과세 품목 가격, 합계, 결제금액 등이 담길 것이다.
+		document.write("<table border=0 cellspacing=0 cellpadding=0>");//테이블의 형식을 지정해준다. 
+		document.write("<tr> <td width=200 align=right>총 품목 수량</td> <td width=150 align=right>" + item.length +"</td> </tr>");//총 품목수량 출력
+		document.write("<tr> <td align=right>(*)면 세　물 품</td> <td align=right>"+ numberWithCommas(totalTaxFree) +"</td> </tr>");//면세 품목 출력
+		document.write("<tr> <td align=right>과 세　물 품</td> <td align=right>"+numberWithCommas(rateprice)+"</td> </tr>");//과세품목 출력
+		document.write("<tr> <td align=right>부　 가 　세</td> <td align=right>"+numberWithCommas(taxprice)+"</td> </tr>");//부가세 출력 
+		document.write("<tr> <td align=right>합　 　 　계</td> <td align=right>"+numberWithCommas(totalPrice)+"</td> </tr>");//합계 출력 
+		document.write("<tr> <td width=200>결 제 대 상 금 액</td> <td align=right>"+numberWithCommas(totalPrice)+"</td> </tr> </table>"); 
+		//결제대상금액 출력 하고 테이블을 닫는다.
+		document.write("------------------------------------------------------");  //라인을 출력한다. 
+function totalpayment(){
+	document.write(numberWithCommas(totalPrice));
+	} //총합계에 대한 펑션 작성.
+</script><!--계산이 끝났기 때문에 html형식으로 작성함-->
+<table border="0" width ="370"><!--테이블을 만들고 양식을 지정한다.-->
+<tr>
+   <td width=225>0012 KEB 하나</td><!--넓이 지정 및 텍스트 입력-->
+   <td width=225 align= right> 541701**0484/35860658</td><!--해당 텍스트 오른쪽 정렬-->
+   <td width=2 align=right>&nbsp&nbsp </td><!--&nbsp 는 스페이스바이다.-->
+</tr><!--1열 작성 마치면 /tr-->
+<tr><!--2열을 작성한다.-->
+   <td>카드결제(IC)</td>
+   <td align= right>일시불 / &nbsp&nbsp<script>totalpayment();</script><!--펑션을 호출한다-->
+   </td>
+   <td width=2 >&nbsp </td>
+</tr>
+<tr><!--3열을 작성한다.-->
+   <td colspan ="3">------------------------------------------------------</td><!--셀을 병합하고 라인을 출력-->
+</tr>
+</table><!--테이블을 닫는다.-->
+<table border="0" width ="365">
+<tr>
+   <td colspan ="3" align= center colspan ="3">[신세계포인트 적립]</td>
+</tr>
+<tr><!--포인트에 대한 안내문구 출력부분-->
+   <td colspan ="3">홍*두 고객님의 포인트 현황입니다.</td>
+</tr>
+<tr>
+   <td width=350>금화발생포인트</td>
+   <td width=225 align=right>9350**9995&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp       164</td>
+   <td width=2 >&nbsp </td><!--텍스트가 나오는것을 막기 위해 얇게 셀을 하나 더 만들었다.-->
+</tr>
+<tr>
+   <td width=350>누계(가용)포인트</td>
+   <td width=225 align=right>
+   148( 148)</td>
+   <td width=2 align=right>&nbsp </td>
+</tr>
+<tr>
+   <td colspan ="3">------------------------------------------------------</td><!--셀을 병합하고 라인을 출력-->
+</tr>
+</table><!--테이블을 닫는다.-->
+
+<table border="0" width ="365"><!--테이블을 새로 생성한다.-->
+<tr><!--주차시간 안내문구 출력 부분--><!--1열을 작성한다.-->
+   <td colspan=3 align=center>구매금액기준 무료 주차시간 자동부여</td></tr>
+   <td></td>
+</tr>
+<tr><!--2열을 작성한다.-->
+   <tr> <td width=225>차량번호 : </td><!--차량번호 입력란이다.-->
+   <td width=225 align=right>34저****</td>
+   <td width=2 align=right>&nbsp </td>
+</tr>
+   <tr> <td>입차시간 : </td><!--3열을 작성한다.-->
+   <td align=right><script>parkingtime();</script></td><!--현재시간에서  -1시간 적용한 펑션을 호출한다-->
+   <td>&nbsp </td>
+</tr>
+<tr><!--4열을 작성한다.-->
+   <td colspan ="3">------------------------------------------------------</td><!--셀을 병합하고 라인을 출력-->
+</tr>
+<tr><!--캐셔 정보 안내 부분 출력.--><!--5열을 작성한다.-->
+   <td align=left>캐셔:084599 양oo</td>
+   <td align=right>1150</td>
+	<td>&nbsp </td></tr>
+<tr><!--6열을 작성한다.-->
+   <td colspan ="3" align=center>|||||||||||||||||||||||||||||||||||||||||||||</td><!--셀을 병합하고 라인을 출력-->
+</tr>
+<tr><!--7열을 작성한다.-->
+   <td colspan ="3" align=center>|||||||||||||||||||||||||||||||||||||||||||||</td><!--셀을 병합하고 라인을 출력-->
+</tr>
+</table><!--테이블을 닫는다.-->
+</body><!--body를 닫는다.-->
+</html><!--역슬레시 html을 작성하여 html를 닫는다.-->
