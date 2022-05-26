@@ -1,0 +1,39 @@
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<!--한글깨짐 방지를 위해서 해당 코드를 입력하여 문서에 대한 콘텐츠 보안정책을 지정한다-->
+<html> 
+<!--HTML 언어로 작성되어 있다는 것을 알려준다.-->
+<head>
+</head>
+<body>
+
+<h1>성적 입력 추가</h1>
+<!--추가버튼-->
+
+<form method="post" action="insertDB_score.jsp">
+<table border="0" ><tr><td width="440" align="right">
+<input type="submit" value="추가" ></td>
+</tr></table>
+<!--HTML 언어로 작성되어 있다는 것을 알려준다.-->
+<table width = "470" cellspacing=0 border=1 >
+      <tr>
+         <td width=100 bgcolor ="#BFBFBF" align=center>이름</td>
+         <td width=300 align=center><input type='text' name='name' value='' maxlength=20 required 
+	pattern='^[가-힣a-zA-Z]+$'></td>
+      </tr>
+	  <tr>
+        <td align="center" bgcolor ="#BFBFBF">학번</td><td align="center">자동부여</td>
+    </tr>
+    <tr>
+        <td align="center" bgcolor ="#BFBFBF">국어</td><td width = "320" align="center"><input type='number' min='0' max='100' name="kor" value='' required></td>
+    </tr>
+    <tr>
+        <td align="center" bgcolor ="#BFBFBF">영어</td><td width = "320" align="center"><input type='number' min='0' max='100' name="eng" value='' required></td>
+    </tr>
+    <tr>
+        <td align="center" bgcolor ="#BFBFBF">수학</td><td width = "320" align="center"><input type='number' min='0' max='100' name="mat" value='' required></td>
+    </tr>
+</form>
+</table>
+</body>
+
+</html>
